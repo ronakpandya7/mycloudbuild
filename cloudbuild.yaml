@@ -5,3 +5,4 @@ steps:
   args: [ 'build', '-t', 'gitlabbeta.dynamic1001.com:4567/artifacts/dockerregistry/mucloudbuildimage:v1', '.' ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gitlabbeta.dynamic1001.com:4567/artifacts/dockerregistry/mucloudbuildimage:v1']
+  
