@@ -17,5 +17,7 @@ RUN apt-get update \
 
 ENV CHROME_BIN=chromium
 
+RUN ng test
+
 # Start Node.js Application with server.js
-CMD [ "ng", "test" ]
+CMD [ "ls" ]
