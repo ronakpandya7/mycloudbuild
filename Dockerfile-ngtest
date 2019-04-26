@@ -12,12 +12,16 @@ RUN npm install
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends chromium
+RUN apk update && apk upgrade && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add --no-cache bash chromium@edge nss@edge
 
-ENV CHROME_BIN=chromium
+ENV CHROME_BIN /usr/bin/chromium-browser
 
-# RUN export CHROME_BIN=/usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+
+ENV SASS_BINARY_NAME=linux-x64-67
 
 RUN ./node_modules/@angular/cli/bin/ng test --watch=false --browsers=ChromeHeadless
 
