@@ -17,6 +17,8 @@ RUN apt-get update \
 
 ENV CHROME_BIN=chromium
 
+export CHROME_BIN=/usr/bin/chromium-browser
+
 RUN ./node_modules/@angular/cli/bin/ng test
 
 # Start Node.js Application with server.js
