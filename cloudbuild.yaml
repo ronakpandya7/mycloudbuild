@@ -1,5 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'ngtest:v1',-f,'Dockerfile-ngtest', '.' ]
+- name: 'gcr.io/cloud-builders/docker'
   args: [ 'login','-u','ronak.pandya','-p','dynamic@2017', 'gitlabbeta.dynamic1001.com:4567']
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gitlabbeta.dynamic1001.com:4567/artifacts/dockerregistry/mucloudbuildimage:v1', '.' ]

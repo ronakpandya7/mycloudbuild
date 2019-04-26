@@ -1,0 +1,21 @@
+FROM gcr.io/cloud-builders/npm
+# Create app directory
+RUN mkdir -p /usr/src/cloudapp
+WORKDIR /usr/src/cloudapp
+
+# Install server dependencies
+COPY . /usr/src/cloudapp/
+
+# Install app dependencies
+WORKDIR /usr/src/cloudapp/CB/
+RUN npm install
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends chromium
+
+ENV CHROME_BIN=chromium
+
+# Start Node.js Application with server.js
+CMD [ "ng", "test" ]
