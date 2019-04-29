@@ -1,4 +1,22 @@
-FROM avatsaev/angular-chrome-headless
+FROM debian:stable-slim
+
+RUN apt-get update
+RUN apt-get install -yy wget curl gnupg
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
+	apt-get update && apt-get install -y nodejs && \
+  npm i -g npm@6
+
+RUN node -v && npm -v
+
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+  apt-get update && \
+  apt-get install -y google-chrome-stable xvfb
+RUN npm -v
+RUN apt update && apt install -y procps
+RUN apt clean
+RUN rm -rf /var/lib/apt/lists/*
+
 # Create app directory
 RUN mkdir -p /usr/src/cloudapp
 WORKDIR /usr/src/cloudapp
@@ -9,19 +27,6 @@ COPY . /usr/src/cloudapp/
 # Install app dependencies
 WORKDIR /usr/src/cloudapp/CB/
 RUN npm install
-
-#ENV DEBIAN_FRONTEND=noninteractive
-
-#RUN apk update && apk upgrade && \
-#    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
-#    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
-#    apk add --no-cache bash chromium@edge nss@edge
-
-#ENV CHROME_BIN /usr/bin/chromium-browser
-
-#ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-
-#ENV SASS_BINARY_NAME=linux-x64-67
 
 RUN ./node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessCI --watch=false
 
