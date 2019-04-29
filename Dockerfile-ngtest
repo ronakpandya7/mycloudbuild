@@ -23,7 +23,7 @@ RUN npm install
 
 #ENV SASS_BINARY_NAME=linux-x64-67
 
-RUN ./node_modules/@angular/cli/bin/ng test --watch=false --browsers=ChromeHeadless --no-sandbox
+RUN ./node_modules/@angular/cli/bin/ng test --browsers Chrome_no_sandbox -w false
 
 # Start Node.js Application with server.js
 CMD [ "ls" ]   
