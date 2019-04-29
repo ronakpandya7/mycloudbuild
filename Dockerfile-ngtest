@@ -1,4 +1,4 @@
-FROM node:11.0-alpine
+FROM avatsaev/angular-chrome-headless
 # Create app directory
 RUN mkdir -p /usr/src/cloudapp
 WORKDIR /usr/src/cloudapp
@@ -10,18 +10,18 @@ COPY . /usr/src/cloudapp/
 WORKDIR /usr/src/cloudapp/CB/
 RUN npm install
 
-ENV DEBIAN_FRONTEND=noninteractive
+#ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apk update && apk upgrade && \
-    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
-    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
-    apk add --no-cache bash chromium@edge nss@edge
+#RUN apk update && apk upgrade && \
+#    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+#    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+#    apk add --no-cache bash chromium@edge nss@edge
 
-ENV CHROME_BIN /usr/bin/chromium-browser
+#ENV CHROME_BIN /usr/bin/chromium-browser
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+#ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
-ENV SASS_BINARY_NAME=linux-x64-67
+#ENV SASS_BINARY_NAME=linux-x64-67
 
 RUN ./node_modules/@angular/cli/bin/ng test --watch=false --browsers=ChromeHeadless
 
