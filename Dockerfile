@@ -1,4 +1,4 @@
-FROM gcr.io/cloud-builders/npm
+FROM node
 # Create app directory
 RUN mkdir -p /usr/src/cloudapp
 WORKDIR /usr/src/cloudapp
